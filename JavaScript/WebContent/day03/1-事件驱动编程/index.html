@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+
+	<!-- 这种方式拿不到事件对象 -->
+	<input type="button" value="方式一：使用onxx属性" onclick="show(this);">
+	
+	<!-- 可以获取到事件源、事件对象，HTML中没有js代码 -->
+	<input id = "id" type="button" value="方式二：元素.onxx=响应函数"/>
+	
+	<input id = "d3" type="button" value="方式三"/>
+	
+	<div id="div"></div>
+</body>
+</html>

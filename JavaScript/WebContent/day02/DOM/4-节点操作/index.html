@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+
+	<!-- 追加节点 -->
+	<!-- 
+	<span id="span" style="background-color: green;">span</span>
+	<div id="div" style="background-color: red;">DIV</div>
+	<input type="button" value="把span加入到div中" onclick="spanApendDiv();"/>
+	<input type="button" value="新建span并加入到div中" onclick="crateSpanApendDiv();"/>
+	 -->
+	<!-- 在指定节点之前插入新的节点 -->
+	<select id="select" size="6" multiple>
+		<option id="item1">节点1</option>
+		<option id="item3">节点3</option>
+		<option id="item4">节点4</option>
+	</select>
+	<input type="button" value="在节点3前插入节点2" onclick="insertNode2BeforeNode3();">
+	<input type="button" value="在节点1后插入节点2" onclick="insertNode2AfterNode1();">
+	<input type="button" value="删除节点1" onclick="removeNode1();">
+	<input type="button" value="把节点3替换为节点8" onclick="replaceNode3ToNode8();">
+	
+</body>
+</html>
