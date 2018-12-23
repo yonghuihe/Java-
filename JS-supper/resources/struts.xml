@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<!--开发者模式：配置文件改变，不需要重启(default.peroperties中默认为：false) -->
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="empPkg" extends="struts-default" namespace="/ajax" >
+        <action name="serverTime" class="com.company._1_ServerTime.ServerTimeAction"/>
+        <action name="checkUsername" class="com.company._2_checkUsername.CheckUsernameAction"/>
+        <action name="login" class="com.company._3_login.LoginAction"/>
+        <!-- <action name="link_*" class="com.company._link.LinkAction" method="{1}"/>
+        <action name="link_*" class="com.company._link.LinkXmlAction" method="{1}"/>
+        <action name="link_*" class="com.company._link.JsonAction" method="{1}"/> -->
+        <action name="link_*" class="com.company._link.LinkJqueryAction" method="{1}"/>
+    </package>
+    
+    <package name="jsonPkg" extends="json-default">
+    	<action name="json" class="com.company._5_json.JsonTest">
+			<result type="json">
+				<param name="excludeProperties">password</param>
+				<param name="root">#ps</param>
+			</result>
+    	</action>
+    </package>
+	
+</struts>

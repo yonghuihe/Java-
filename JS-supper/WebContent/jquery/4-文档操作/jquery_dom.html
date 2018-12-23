@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="../jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="dom.js"></script>
+
+<style type="text/css">
+	.other {
+		background-color: orange;
+		font-size: 20px;
+	}
+	.myBtn{
+		background-color: red;
+	}
+</style>
+</head>
+<body>
+	<span style="background-color : blue;color: red;" id="span">SPAN</span>
+	<div id="div1" style="background-color: gray;">DIV1</div>
+	<div id="div2" style="background-color: green;">DIV2</div>
+	
+	<ul id="ul">
+		<li>item1</li>
+		<li>item2</li>
+		<li>item3</li>
+		<li>item4</li>
+		<li>item5</li>
+	</ul>
+		
+	<input id="btn" type="button" value="删除我"/> 
+
+	<form>
+  		<fieldset>
+    		<legend>内部插入节点(插入子节点)</legend>
+	  		<input type="button" value="append" id="append"/>
+	  		<input type="button" value="appendTo" id="appendTo"/>
+	  		<input type="button" value="prepend" id="prepend"/>
+	  		<input type="button" value="prependTo" id="prependTo"/>
+  		</fieldset>
+	</form>
+
+	<form>
+  		<fieldset>
+    		<legend>外部插入节点(插入兄弟节点)</legend>
+	  		<input type="button" value="after" id="after"/>
+	  		<input type="button" value="before" id="before"/>
+	  		<input type="button" value="insertAfter" id="insertAfter"/>
+	  		<input type="button" value="insertBefore" id="insertBefore"/>
+  		</fieldset>
+	</form>
+
+	<form>
+  		<fieldset>
+    		<legend>删除节点</legend>
+			<input type="button" value="删除所有子节点" id="empty"/>
+	  		<input type="button" value="删除节点" id="remove"/>		
+  		</fieldset>
+	</form>
+
+	<form>
+  		<fieldset>
+    		<legend>克隆/替换节点</legend>
+	  		<input type="button" value="克隆节点" id="clone"/>
+	  		<input type="button" value="替换所有节点" id="replaceWith"/>
+	  		<input type="button" value="替换所有节点" id="replaceAll"/>
+  		</fieldset>
+	</form>
+
+	<form>
+  		<fieldset>
+    		<legend>属性操作</legend>
+	  		<input type="button" value="获取属性值" id="getAttr"/>
+	  		<input type="button" value="设置属性值" id="setAttr"/>
+  		</fieldset>
+	</form>
+
+	<form>
+  		<fieldset>
+    		<legend>CSS操作</legend>
+	  		<input type="button" value="添加CSS" id="addClass"/>
+	  		<input type="button" value="删除CSS" id="removeClass"/>
+	  		<input type="button" value="轮换CSS" id="toggleClass"/>
+	  		<input type="button" value="判断CSS" id="hasClass"/>
+  		</fieldset>
+	</form>
+
+</body>
+</html>
