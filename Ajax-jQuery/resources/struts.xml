@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+
+    <package name="default" namespace="/" extends="struts-default,json-default">
+    	<action name="plugin" class="com._520it.ajax._06_struts2_json_plugin.Struts2JSONPluginAction">
+    		<result type="json">
+    			<!-- 设置需要排除掉的的属性 -->
+    			<!-- <param name="excludeProperties">name,age</param> -->
+    			<!-- 从context区域中名字为provinces寻找 -->
+				<param name="root">#provinces</param>
+    		</result>
+    	</action>
+    </package>
+
+</struts>
