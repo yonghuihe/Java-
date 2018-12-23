@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	default-lazy-init="default":延迟加载
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd" >
+
+	<bean id="otherBean" class="com.company.day1.conDi.OtherBean"/>
+	<!-- 
+		spring提供了一些额外的配置来方便spring找到对应的构造器：
+			1、index：通过构造方法参数位置来指定，从0开始
+			2、type：在构造方法中参数的类型
+			3、name：使用构造方法参数的名字来设置
+	 -->
+	 <bean id="someBean" class="com.company.day1.conDi.SomeBean">
+	 	<constructor-arg value="111" />
+	 	<constructor-arg ref="otherBean" />
+	 </bean>
+</beans>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 要使用annotation的aop，必须 在xml中引入aspectj-autoproxy， 这个元素相当于引入了用于解析@Aspect和@Before等元素的第三方程序 -->
+	<!-- 
+	<aop:aspectj-autoproxy/> 
+	<context:component-scan base-package="com.company.day2.aop"/> 
+	 -->
+	<!-- 读取资源占位符文件 -->
+	<context:property-placeholder location="classpath:db.properties" />
+
+	<!-- 配置数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- 不能实例化的对象配置为spring里面
+		abstract=true：代表这个类型是抽象的，不用实例化-->
+	<bean id="baseDao" abstract="true">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 
+		<bean id="employeeDao" class="com.company.day2.aop.dao.impl.EmployeeDaoImpl">
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+	 -->
+	<bean id="employeeDao" class="com.company.day2.aop.dao.impl.EmployeeDaoImpl" 
+		parent="baseDao"/>
+
+	<bean id="departmentDao" class="com.company.day2.aop.dao.impl.DepartmentDaoImpl" 
+		parent="baseDao"/>
+		
+	<bean id="employeeService" class="com.company.day2.aop.service.impl.EmployeeServiceImpl" />
+	<bean id="departmentService" class="com.company.day2.aop.service.impl.DepartmentServiceImpl" />
+	<!-- <bean id="txManager" class="com.company.day2.aop.txManager.TransactionManager" /> -->
+
+	<!-- 配置事务管理器 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 配置事务 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.company.day2.aop.service.*Service.*(..))" id="pc"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<!-- 
+				配置事务方法属性
+				配置在我拦截到的对象中，每个方法怎么处理事务
+			 -->
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="list*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+			<tx:method name="count*" read-only="true"/>
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+<!-- 
+	<aop:config>
+		配置一个切入点，expression:AspectJ表达式，id：表达式的名称
+		<aop:pointcut
+			expression="execution(* com.company.day2.aop.service.*Service.*(..))"
+			id="pc" />
+		配置一个切面 ：代表在这个切面中，做什么事情都是由TxManager这个对象的方法提供的
+		<aop:aspect ref="txManager">
+			<aop:before method="begin" pointcut-ref="pc"/> <aop:after-returning 
+				method="commit" pointcut-ref="pc"/> <aop:after-throwing method="rollback" 
+				pointcut-ref="pc"/>
+			<aop:around method="around" pointcut-ref="pc" />
+		</aop:aspect>
+	</aop:config>
+ -->
+</beans>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	default-lazy-init="default":延迟加载
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd" >
+	<!-- 
+		lazy-init="true"：延迟加载
+		<bean id="someBean" class="com.company.day1.container.dao.impl.SomeBeanDaoImpl" lazy-init="true"/>
+	 -->
+	<!-- 
+		默认的bean的实例化方式：
+			1、需要class
+			2、这些javabean必须要有无参构造器
+	<bean id="someBean" class="com.company.day1.container.dao.impl.SomeBeanDaoImpl" />
+	 -->
+	 
+	 <!-- 
+	 	静态工厂方法实例化bean：
+	 		1、bean的类型必须要写工厂类
+	 		2、必须要配置factory-method：代表调用工厂上的哪个方法来创建bean
+	 <bean id="someBean" class="com.company.day1.container.test.SomeBeanFactory" factory-method="create"/>
+	 -->
+	 
+	 <!-- 
+	 	实例工厂方法实例化bean：通过一个工厂对象的实例来生产我们需要的对象：
+	 	1、先配置一个工厂的实例对象
+	 	2、再配置bean：
+	 		factory-bean：哪一个实例作为工厂；
+	 		factory-method：在这个实例上面调用哪一个工厂方法
+	 	3、注意：在spring中声明的对象之间是可以通过id互相引用的
+	  -->
+	  <bean id="someBeanFactory" class="com.company.day1.container.test.SomeBeanFactory"/>
+	  <bean id="someBean" class="com.company.day1.container.dao.impl.SomeBeanDaoImpl" 
+	  	factory-bean="someBeanFactory" factory-method="create"/>
+</beans>

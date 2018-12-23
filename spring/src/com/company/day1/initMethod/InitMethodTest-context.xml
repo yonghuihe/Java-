@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	default-lazy-init="default":延迟加载
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd" >
+
+	<!-- 
+		init-method:告诉spring，SomeBean对象的初始化方法名称；初始化方法是不能有参数的；
+		destroy-method:告诉spring，SomeBean对象的销毁方法名称；销毁方法是不能有参数的；
+	 -->
+	<bean id="someBean" class="com.company.day1.initMethod.SomeBean" 
+		init-method="init" destroy-method="close" scope="prototype"/>
+	
+</beans>

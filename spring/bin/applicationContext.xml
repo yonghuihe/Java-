@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	beans:javabean
+		spring是一个放java对象的容器，把放在spring中的对象称之为javabean
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+		bean：配置一个需要spring管理的javabean
+			id：是一个javabean的名字（唯一）
+			class：这个javabean的类型，spring就是靠这个类型来实例化这个bean的；
+		如果我们的bean需要其他的名字，可以通过name属性来为一个bean配置更多的名字
+		并且在name属性中可以使用逗号，分号和空格来分割多个名字
+		在代码中，可以使用beanFactory.getAlias来得到一个bean的所有名字		
+	-->
+		<bean id="helloWorld" name="helloWorld1,helloWorld2" class="com.company.day1.hello.dao.impl.HelloWorldDaoImpl"/> 
+	<!-- 
+		在spring中，可以把配置文件分散到各个模块中，然后在总的配置文件中，使用import元素引入这些配置文件；
+		1.默认情况下，使用相对路径寻找配置文件
+		2.spring提供了两种前缀标记来辅助查找配置文件
+			①：[classpath:]代表从classpath开始寻找后面的资源文件======>org.springframework.core.io.ClassPathResource
+			②：[file:]代表使用文件系统的方式寻找后面的文件			======>org.springframework.core.io.FileSystemResource
+	 
+	 <import resource="com/company/day1/hello/domain/helloWorld.xml"/>
+	 <import resource="classpath:com/company/day1/hello/domain/helloWorld.xml"/>
+	 <import resource="file:D:\Seemygo\Java\stef\spring\src\com\company\day1\hello\domain\helloWorld.xml"/>
+	 <import resource="classpath:com/company/day1/container/SomeBeanTest-context.xml"/>
+	 -->
+	 
+</beans>

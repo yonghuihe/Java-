@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	default-lazy-init="default":延迟加载
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd" >
+
+	<!-- 
+		如果要使用IOC的注解，一定要配置context:component-scan 
+		base-package代表，让spring去扫描包及其子包里面的类
+	-->
+	<context:component-scan base-package="com.company.day2.ioc"/>
+	
+	<bean id="otherBean" class="com.company.day2.ioc.OtherBean"/>
+	<bean id="someBean" class="com.company.day2.ioc.SomeBean"/>
+</beans>

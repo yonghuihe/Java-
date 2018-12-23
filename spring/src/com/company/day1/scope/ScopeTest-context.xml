@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	default-lazy-init="default":延迟加载
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd" >
+
+	<!-- 
+		可以使用scope属性来限定bean的生命范围（在什么范围内拿到的bean是相同的）
+		singleton：整个应用里面，拿这个bean，拿到的是同一个引用（单例）；singleton也是默认的scope
+		prototype：原型模式：每次拿这个对象，拿到的对象都是这个对象原对象的一份拷贝；每拿一次，就创建一个新的对象；
+					注意：对于Scope为prototype的bean，application在启动的时候不会去初始化这些类,
+						在使用的时候才会去创建新的对象（副本），所以拿到的对象也是不相同的，也就是原型模式
+		request：每一次请求（HttpRequest）中，创建一个对象；（一般不会使用必须是在有Web环境的Spring中使用，也就是在SpringMVC中）
+		session：每一次会话（HttpSession）中，创建一个对象；（一般不会使用必须是在有Web环境的Spring中使用，也就是在SpringMVC中）
+	 -->
+	<bean id="someBean" class="com.company.day1.scope.SomeBean" scope="prototype"/>
+</beans>

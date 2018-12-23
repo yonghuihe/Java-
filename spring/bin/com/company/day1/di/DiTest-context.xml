@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	default-lazy-init="default":延迟加载
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd" >
+
+	<bean id="otherBean" class="com.company.day1.di.OtherBean"/>
+	<!-- 
+		通过setter注入：
+			1、在bean元素中，可以通过property属性，使用setter方法，为bean注入依赖的值；
+			2、对于简单值，直接使用property的value属性赋值；
+			3、在配置文件中全是字符串，要能够匹配对象中的类型，spring内部会经过类型的转换；
+				日期类型敏感，日期类型框架是不能帮我们装换的；
+	 -->
+	 <bean id="someBean" class="com.company.day1.di.SomeBean">
+	 	<property name="name" value="name"></property>
+	 	<property name="password" value="password"></property>
+	 	<property name="amount" value="11.22"></property>
+	 	<property name="maxConnection" value="666"></property>
+	 	<property name="url" value="http://localhost:8080/hello.jsp"/>
+	 	<!-- 
+	 		通过setter注入依赖的其他对象 ：
+	 			1、要保证，依赖的对象是在spring中配置的对象
+	 			2、使用property的ref属性来引用要spring注入的bean的id
+	 	 -->
+	 	<property name="otherBean" ref="otherBean"/>
+	 	<!-- 
+	 		通过setter注入集合对象：
+	 		list：元素有序，元素可以重复
+	 			可以注入简单值、spring管理的其他对象、集合
+	 		set：元素可以无序，元素不能重复
+	 			可以注入简单值、spring管理的其他对象、集合
+	 		map：key-value存储
+	 			key可以为简单值、spring管理的其他对象（key相同，后一个会覆盖前一个的value）
+	 			value可以为可以注入简单值、spring管理的其他对象、集合
+	 	 -->
+	 	<property name="list">
+	 		<list >
+	 			<value>111</value>
+	 			<value>hhh</value>
+				<ref bean="otherBean"/>
+				<list>
+					<value>111</value>
+		 			<value>hhh</value>
+					<ref bean="otherBean"/>
+				</list>
+	 		</list>
+	 	</property>
+	 	<property name="set">
+	 		<set>
+	 			<value>111</value>
+		 		<value>222</value>
+				<ref bean="otherBean"/>
+				<list>
+					<value>111</value>
+		 			<value>hhh</value>
+					<ref bean="otherBean"/>
+				</list>
+	 		</set>
+	 	</property>
+	 	<property name="map">
+	 		<map>
+	 			<entry key="111" value="222"/>
+	 			<entry key="111" value="333"/>
+	 			<entry key="222" value-ref="otherBean"/>
+	 			<entry key-ref="otherBean" value="333"/>
+	 			<entry key="333">
+	 				<map>
+	 					<entry key="111" value="222"></entry>
+	 				</map>
+	 			</entry>
+	 		</map>
+	 	</property>
+	 	
+	 	<!-- 
+	 		使用props方式注入：
+	 			1、能够正常装配为properties对象
+	 			2、能够正常识别中文
+	 	
+	 	<property name="properties">
+	 		<props>
+	 			<prop key="show_sql">true</prop>
+	 			<prop key="hbm2ddl.auto">create</prop>
+	 			<prop key="中文">中文</prop>
+	 		</props>
+	 	</property>
+	 	 -->
+	 	 
+	 	 <!-- 
+	 	 	使用value方法注入：（一般使用这种）
+				1、能够正常装配为properties对象
+				2、不能够正常识别中文
+				3、每一行对应一组配置
+	 	  -->
+	 	<property name="properties">
+	 		<value>
+	 			show_sql=true
+	 			hbm2ddl.auto=create
+	 			中文=中文
+	 		</value>
+	 	</property>
+	 </bean>
+</beans>
