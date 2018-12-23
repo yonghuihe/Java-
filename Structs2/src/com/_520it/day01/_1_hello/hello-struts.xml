@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="helloPkg" extends="struts-default" namespace="/pss">
+		<!--
+			name:action的名称,名称空间+actionName来访问
+			class:action类的全限定名
+			method:执行那个方法
+		 -->
+		<action name="hello" class="com._520it._1_hello.HelloAction"
+			method="excute">
+			<result name="hello" type="dispatcher">/hello.jsp</result>
+		</action>
+	</package>
+
+</struts>

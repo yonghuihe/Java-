@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="uploadPkg" extends="struts-default" namespace="/pss">
+		<!-- 修改已经注册好的拦截器配置 -->
+		<interceptors>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="fileUpload">
+					<!--重新配置拦截器的属性  -->
+					<param name="allowedTypes">image/*</param>				
+					<param name="maximumSize">104</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"/>
+		<action name="upload" class="com._520it.day02._02_upload.UploadAction" method="execute"/>
+	</package>	
+</struts>

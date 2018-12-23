@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="interPkg" extends="struts-default" namespace="/pss">
+		<!-- 注册拦截器  -->
+		<interceptors>
+			<interceptor name="checkLogin" class="com._520it.day02._01_interceptor.CheckLoginInterceptor">
+				<param name="scopeName">user_in_session</param>
+				<param name="loginView">login</param>
+			</interceptor>
+			<!-- 自定义拦截器站 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="checkLogin"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 配置当前包中默认的拦截器-->
+		<default-interceptor-ref name="checkLogin"/>
+		
+		<!-- 配置全局结果视图  -->
+		<global-results>
+			<result name="login" type="redirect">/day02/login.jsp</result>
+		</global-results>
+
+		<action name="login" class="com._520it.day02._01_interceptor.LoginAction" method="execute">
+			<!-- 使用自己引用的拦截器 -->
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success" type="redirectAction">main</result>
+		</action>
+		
+		<action name="main" >
+			<!-- 引用已经注册的拦截器 
+			<interceptor-ref name="checkLogin"/>-->
+			<result>/day02/welcome.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>

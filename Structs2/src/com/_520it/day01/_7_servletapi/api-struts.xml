@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="apiPkg" extends="struts-default" namespace="/pss">
+		<!-- <action name="emp_delete" class="com._520it._6_method.EmployeeAction" 
+			method="delete"/> -->
+		<action name="api3" class="com._520it._7_servletapi.Action3" >
+			<result >/hello.jsp</result>
+		</action>
+	</package>
+</struts>
