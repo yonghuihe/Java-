@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.oneToMany.DepartmentMapper">
+
+	<resultMap type="Department" id="deptResultMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="emps" column="emps" />
+		<!-- 发送两条SQL -->
+		<!-- <collection property="emps" ofType="Employee" select="com.company.mapper.oneToMany.EmployeeMapper.get" column="id"/> -->
+		<!-- 使用左连接查询，发送一条SQL -->
+		<collection property="emps" ofType="Employee" columnPrefix="e_">
+			<result property="id" column="id" />
+			<result property="username" column="username" />
+			<result property="password" column="password" />
+			<result property="age" column="age" />
+			<result property="inputTime" column="inputTime" />
+		</collection>
+	</resultMap>
+	
+	<insert id="add" parameterType="Department" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into department (name) values (#{name})
+	</insert>
+	
+	<delete id="delete" parameterType="Long">
+		delete from department where id = #{did}
+	</delete>
+	
+	<select id="get" parameterType="Long" resultMap="deptResultMap">
+		SELECT
+			d.id,
+			d.`name`,
+			e.id AS e_id,
+			e.username AS e_username,
+			e.`password` AS e_password,
+			e.age AS e_age,
+			e.inputTime AS e_inputTime
+		FROM
+			department d
+		LEFT JOIN employee e ON (d.id = e.dept_id)
+		WHERE
+			d.id = #{did}
+	</select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 抽取db.properties -->
+	<properties resource="db.properties"/>
+	
+	<settings>
+		<!-- 全局启用或禁用延迟加载。当禁用时，所有的关联对象都会即时加载 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!-- Object对象上面的哪些方法触发延迟加载，默认：equals,clone,hashCode,toString-->
+		<!-- <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode"/> -->
+	</settings>
+	
+	<!-- 设置别名 -->
+	<typeAliases>
+		<!-- 单个文件 -->
+		<!-- <typeAlias type="com.company.domain.Employee" alias="Employee"/> -->
+		<!-- 指定需要设置别名的包 -->
+		<package name="com.company.domain"/>
+	</typeAliases>
+
+	<environments default="default">
+		<environment id="default">
+			<!-- 别名：JDBC -->
+			<transactionManager type="org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory"/>
+			<!-- 别名：POOLED -->
+			<dataSource type="org.apache.ibatis.datasource.pooled.PooledDataSourceFactory">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 关联mapper -->
+	<mappers>
+		<!-- 引入单个文件 -->
+		<!-- <mapper resource="com/company/mapper/EmployeeMapper.xml"/> -->
+		<!-- 指定mapper包所在的路径 -->
+		<package name="com.company.mapper.manyToMany"/>
+	</mappers>
+</configuration>

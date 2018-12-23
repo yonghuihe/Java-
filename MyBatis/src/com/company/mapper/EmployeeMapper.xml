@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.EmployeeMapper">
+
+	<resultMap type="Employee" id="empResultMap">
+		<!-- 装配主键 -->
+		<id column="e_id" property="id"/>
+		<!-- 装配普通属性 -->
+		<result column="e_username" property="username"/>
+		<result column="e_password" property="password"/>
+		<result column="e_age" property="age"/>
+		<result column="e_inputTime" property="inputTime"/>
+	</resultMap>
+	
+	<sql id="where_id">
+		<where>
+			<if test="keywords != null">
+				and username like concat('%',#{keywords},'%')
+			</if>
+			<if test="beginDate != null">
+				and inputTime &gt;= #{beginDate}
+			</if>
+			<if test="endDate != null">
+				and inputTime &lt; #{endDate}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="Employee" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into employee (username,password,age) values (#{username},#{password},#{age})
+	</insert>
+	<update id="edit" parameterType="Employee">
+		update employee
+		<!-- set标签：会动态设置关键字，也会消除无关的逗号 --> 
+		<!-- <set>
+			username = #{username},
+			<if test="password != null">
+				password = #{password},
+			</if>
+			age = #{age},
+			inputTime = #{inputTime},
+		</set> -->
+		<!-- 使用trim模仿set标签 -->
+		<trim prefix="set" suffix="" prefixOverrides="" suffixOverrides=",">
+			username = #{username},
+			<if test="password != null">
+				password = #{password},
+			</if>
+			age = #{age},
+			inputTime = #{inputTime},
+		</trim>
+		where id = #{id}
+	</update>
+	<delete id="delete" parameterType="Long">
+		delete from employee where id = #{id}
+	</delete>
+	<select id="selectOne" parameterType="Long" resultType="Employee">
+		select * from employee where id = #{id}
+	</select>
+	<select id="selectList" resultType="Employee">
+		select * from employee
+	</select>
+	<select id="getAll" resultMap="empResultMap">
+		select e.id as e_id,e.username as e_username,e.password as e_password,e.age as e_age from employee e
+	</select>
+	<select id="query" parameterType="com.company.query.EmployeeQueryObject" resultType="Employee">
+		select * from employee
+		<!-- <choose>
+			<when test="keywords != null">
+				username like concat('%',#{keywords},'%')
+			</when>
+			<when test="beginDate != null">
+				inputTime &gt;= #{beginDate}
+			</when>
+			<otherwise>
+				inputTime &lt; #{endDate}
+			</otherwise>
+		</choose> -->
+		<!-- where标签：自动判读是否有语句，如果有加上where标签，并且帮我们去掉多余的 and -->
+		<!-- <where>
+			<if test="keywords != null">
+				and username like concat('%',#{keywords},'%')
+			</if>
+			<if test="beginDate != null">
+				and inputTime &gt;= #{beginDate}
+			</if>
+			<if test="endDate != null">
+				and inputTime &lt; #{endDate}
+			</if>
+		</where> -->
+		<!-- 使用trim模仿where标签 -->
+		<trim prefix="where" suffix="" prefixOverrides="and" suffixOverrides="">
+			<if test="keywords != null">
+				and username like concat('%',#{keywords},'%')
+			</if>
+			<if test="beginDate != null">
+				and inputTime &gt;= #{beginDate}
+			</if>
+			<if test="endDate != null">
+				and inputTime &lt; #{endDate}
+			</if>
+		</trim>
+	</select>
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="Long">
+		delete from employee where id in
+		<foreach collection="list" open="(" close=")" index="index" item="item" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 批量插入 -->
+	<insert id="addAll" parameterType="Employee" useGeneratedKeys="true" keyColumn="id" >
+		insert into employee (username,password,age) values 
+		<foreach collection="list" open="" close="" index="" item="item" separator=",">
+			(#{item.username},#{item.password},#{item.age})
+		</foreach>
+	</insert>
+	
+	<select id="selectPageResultCount" parameterType="com.company.query.EmployeeQueryObject" resultType="Long">
+		select count(*) from employee
+		<!-- 引入高级查询 -->
+		<include refid="where_id"/>
+	</select>
+	<select id="selectPageResult" parameterType="com.company.query.EmployeeQueryObject" resultType="Employee">
+		select * from employee
+		<!-- 引入高级查询 -->
+		<!-- <include refid="where_id"/> -->
+		<!-- 引入分页 -->
+		limit #{queryObject.start},#{queryObject.rows}
+	</select>
+	
+	<select id="login" resultType="Employee">
+		select * from employee where username = #{username} and password = #{password}
+	</select>
+</mapper>

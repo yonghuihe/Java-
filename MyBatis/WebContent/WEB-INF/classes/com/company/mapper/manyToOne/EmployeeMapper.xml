@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.manyToOne.EmployeeMapper">
+	
+	<resultMap type="Employee" id="empResultMap">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="age" column="age" />
+		<result property="inputTime" column="inputTime" />
+		<!-- 另外发送一条SQL -->
+		<!-- <association property="dept" javaType="Department" select="com.company.mapper.manyToOne.DepartmentMapper.get"  column="dept_id"/> -->
+		<!-- 使用左连接的方式 -->
+		<association property="dept" javaType="Department" columnPrefix="d_">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+		</association>
+	</resultMap>
+
+	<insert id="add" parameterType="Employee" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into employee (username,password,age,inputTime,dept_id) values (#{username},#{password},#{age},#{inputTime},#{dept.id})
+	</insert>
+	
+	<select id="get" parameterType="Long" resultMap="empResultMap">
+		select * from employee where id = #{id}
+	</select>
+
+	<select id="list" resultMap="empResultMap">
+		SELECT
+			e.id,
+			e.username,
+			e.`password`,
+			e.age,
+			e.inputTime,
+			d.id AS d_id,
+			d.`name` AS d_name
+		FROM
+			employee e
+		LEFT JOIN department d ON (e.dept_id = d.id)
+	</select>
+	
+	
+	
+</mapper>
