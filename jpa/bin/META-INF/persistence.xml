@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	
+	<!-- persistence-unit:持久化单元，对应着hibernate的SessionFactory，注意，必须写name属性 -->
+	<persistence-unit name="com.company.jpa">
+		<!-- 手动告诉JPA，需要管理那些类 -->
+		<class>com.company.jpa.hello.domain.Employee</class>
+		<!-- exclude-unlisted-classes:设置为false，就只会管理使用class元素引入的类 -->
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+	
+		<!-- 默认情况下，JPA会自动在当前classpath里面所有的类型中去发现@Entity标签的类，并自动把这些类作为JPA管理的类型  -->
+		<properties>
+			<!-- 
+				使用hibernate实现的JPA，在配置文件里面，有很多hibernate的配置项都可以使用；
+				这时候，如果要用hibernate的配置项，前面必须要写hibernate.
+			 -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+			<!-- 
+				配置连接信息
+			 -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql:///jpa"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="admin"/>
+			<!-- 
+				hibernate的配置
+			 -->
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			<property name="hibernate.show_sql" value="true"/>
+			
+			<!-- 
+				一般把这个配置加上
+				如果在myeclipse下使用，如果使用JavaEE的环境下，需要加上这个配置
+			 -->
+			<property name="javax.persistence.validation.mode" value="auto"/>
+			
+			<!-- 选择二级缓存框架 -->
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+			<!-- 配置自定义二级缓存前缀 -->
+			<property name="hibernate.cache.region_prefix" value="Hibernate"/>
+		</properties>
+	</persistence-unit>
+</persistence>
