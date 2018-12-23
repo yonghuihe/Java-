@@ -1,0 +1,84 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!-- hibernate的配置文件 -->
+<hibernate-configuration>
+	<!-- 
+		session-factory:可以暂时理解为一个DataSource
+		session:代表和数据库之间的会话，代表一个connection
+		factory：工厂模式，生产session
+		hibernate报错：org.hibernate.service.jndi.JndiException: Error parsing JNDI name [foo]
+			解决方案：去掉name属性
+	 -->
+	<session-factory>
+		<!-- 配置连接信息 ,在hibernate配置文件中可以不用加"hibernate."-->
+		<!-- 
+			#hibernate.connection.driver_class com.mysql.jdbc.Driver
+			#hibernate.connection.url jdbc:mysql:///test
+			#hibernate.connection.username gavin
+			#hibernate.connection.password
+		 -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql:///hibernate</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">admin</property>
+		<!-- 配置方言 -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!-- 开启二级缓存：默认情况下就是开启状态 -->
+		<property name="cache.use_second_level_cache">true</property>
+		<!-- 选择二级缓存框架 -->
+		<property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		<!-- 配置自定义二级缓存前缀 -->
+		<property name="cache.region_prefix">Hibernate</property>
+		<!-- 开启hibernate的查询缓存 -->
+		<property name="cache.use_query_cache">true</property>
+		
+		
+		<!-- 
+			hibernate表的自动生成：
+				#hibernate.hbm2ddl.auto create-drop
+				#hibernate.hbm2ddl.auto create
+				#hibernate.hbm2ddl.auto update
+				#hibernate.hbm2ddl.auto validate
+		 -->
+		<property name="hbm2ddl.auto">update</property>
+		
+		<property name="use_identifier_rollback">true</property>
+		
+		<!-- 显示hibernate执行的sql语句 -->
+		<property name="show_sql">true</property>
+		<!-- 
+			mapping元素告诉hibernate映射文件的位置
+			hibernate只会去管理在这里面写了mapping的对象
+		-->
+		
+		 	<mapping resource="com/conpany/hibernate/day04/query/domain/query.hbm.xml"/> 
+		<!--
+		 	<mapping resource="com/conpany/hibernate/day03/enums/domain/enum.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day03/extend/domain/perTable.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day03/extend/domain/oneTable.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day03/many2many/domain/many2many.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day03/component/domain/component.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day03/one2one/domain/one2one.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day03/cascade/domain/cascade.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day02/collection/collection.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day02/many2one2many/many2one2many.hbm.xml"/> 
+		 	<mapping resource="com/conpany/hibernate/day01/hello/domain/Employee.hbm.xml"/> 
+			<mapping resource="com/conpany/hibernate/day01/property/EmployeeProperty.hbm.xml"/> 
+			<mapping resource="com/conpany/hibernate/day02/id/domain/Id.hbm.xml"/> <mapping 
+			resource="com/conpany/hibernate/day02/one2many/domain/Employee.hbm.xml"/> 
+			<mapping resource="com/conpany/hibernate/day02/one2many/domain/Department.hbm.xml"/> 
+			<mapping resource="com/conpany/hibernate/day02/many2one/domain/Employee.hbm.xml"/> 
+			<mapping resource="com/conpany/hibernate/day02/many2one/domain/Department.hbm.xml"/>
+		 -->
+		 <!-- 统一管理二级缓存对象:告诉hibernate，那个对象需要使用二级缓存 -->
+		 <class-cache usage="read-write" class="com.conpany.hibernate.day04.query.domain.Employee"/>
+		 <!-- 
+		 	<class-cache usage="read-only" class="com.conpany.hibernate.day04.query.domain.Employee" region="EMPLOYEE"/>
+		 	把多个对象都放到CACHE_1这个缓存中
+		 	<class-cache usage="read-only" class="com.conpany.hibernate.day04.query.domain.Employee" region="CACHE_1"/> 
+		 -->
+	</session-factory>
+</hibernate-configuration>

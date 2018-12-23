@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.conpany.hibernate.day04.query.domain">
+	<import class="com.conpany.hibernate.day04.query.domain.EmployeeVO" rename="EmployeeVO"/>
+	<class name="Department">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="sn"/>
+		<property name="name"/>
+		<component name="address">
+			<property name="provice"/>
+			<property name="city"/>
+			<property name="street"/>
+		</component>
+		<many-to-one name="employee" column="MANAGER_ID"/>
+	</class>
+	<class name="Employee">
+		<cache usage="read-only"/>
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<version name="version"/>
+		<property name="name"/>
+		<property name="salary" column="salay"/>
+		<property name="hireDate"/>
+		<many-to-one name="dept" column="DEPT_ID"/>
+	</class>
+	<class name="Phone">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="types">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.conpany.hibernate.day04.query.domain.PhoneTypes</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
+		<property name="number"/>
+		<many-to-one name="employee" column="EMPLOYEE_ID"/>
+	</class>
+	<class name="Project">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="name"/>
+		<many-to-one name="manager" column="MANAGER_ID"/>
+		<set name="employees" table="project_employee">
+			<key column="PROJECT_ID"/>
+			<many-to-many class="Employee" column="EMPLOYEE_ID"></many-to-many>
+		</set>
+	</class>
+	<query name="SELECT_ALL_EMPLOYEE">
+		select e From Employee e
+	</query>
+</hibernate-mapping>

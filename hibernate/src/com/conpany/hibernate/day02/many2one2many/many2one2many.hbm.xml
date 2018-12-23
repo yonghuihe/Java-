@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.conpany.hibernate.day02.many2one2many">
+	<class name="Employee">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="name"/>
+		<many-to-one name="dept" column="dept_id"/>
+	</class>
+	
+	<class name="Department">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="name"/>
+		<!-- 
+			双向的many2one2many,总是会发送额外的SQL
+			解决方案：使用inverse="true"
+				告诉hibernate对one2many中的one方的集合不要维护关系，
+		 -->
+		<set name="emps" inverse="true">
+			<key column="dept_id"/>
+			<one-to-many class="Employee"/>
+		</set>
+	</class>
+</hibernate-mapping>

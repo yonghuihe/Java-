@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.conpany.hibernate.day03.cascade.domain">
+	<class name="SaleBill">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="sn"/>
+		<property name="inputTime"/>
+		<set name="items" inverse="true" cascade="all-delete-orphan">
+			<key column="item_id"/>
+			<one-to-many class="SaleBillItem"/>
+		</set>
+	</class>
+	
+	<class name="SaleBillItem">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="product"/>
+		<many-to-one name="bill">
+			<column name="item_id"/>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

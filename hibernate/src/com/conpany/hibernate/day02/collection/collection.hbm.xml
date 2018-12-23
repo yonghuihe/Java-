@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.conpany.hibernate.day02.collection">
+	<class name="Employee">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="name"/>
+		<property name="sequence"/>
+		<many-to-one name="dept" column="dept_id"/>
+	</class>
+	
+	<class name="Department">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="name"/>
+		<!-- 
+			双向的many2one2many,总是会发送额外的SQL
+			解决方案：使用inverse="true"
+				告诉hibernate对one2many中的one方的集合不要维护关系，
+			list-index:
+				相当于在Employee增加了一列专门用来保存Employee在集合中添加的顺序（往集合中添加的顺序）
+		 -->
+		<!-- 
+			<list name="emps" inverse="true">
+				<key column="dept_id"/>
+				<list-index column="SEQ"/>
+				<one-to-many class="Employee"/>
+			</list>
+		 -->
+		 <!-- 
+		 	如果只是想把List作为一个集合，而不让hibernate来帮我们维护顺序，就可以使用bag
+		 	bag元素不关心one中的many方的顺序（其实是根据id的顺序来查询的） 
+		 	如果必须要让many方有顺序，在many方添加一个表示顺序的属性
+		 			private Integer sequence;
+		 		<bag/>:
+		 			order-by="sequence"
+		 		发出的select语句使用了order-by：
+		 			where emps0_.dept_id=? order by emps0_.sequence
+		 -->
+		<bag name="emps" order-by="sequence">
+			<key column="dept_id"/>
+			<one-to-many class="Employee"/>
+		</bag>
+	</class>
+</hibernate-mapping>

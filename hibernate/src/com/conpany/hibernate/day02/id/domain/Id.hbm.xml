@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.conpany.hibernate.day02.id.domain">
+	<class name="Id">
+		<id name="id">
+			<!-- <generator class="org.hibernate.id.enhanced.TableGenerator">
+				<param name="segment_value">ID_SEQUENCE</param>
+				<param name="initial_value">1</param>
+				<param name="increment_size">100</param>
+			</generator> -->
+			<generator class="native"/>
+		</id>
+		<property name="name"/>
+	</class>
+</hibernate-mapping>
