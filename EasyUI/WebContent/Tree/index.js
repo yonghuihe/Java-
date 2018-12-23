@@ -1,0 +1,19 @@
+$(function(){
+	$("#MyTree").tree({
+		url:"tree.json",
+		animate:true,
+		lines:true,
+		checkbox:true,
+		dnd:true,
+		onClick:function(node){
+			/*if(node.state == 'open'){
+				//折叠树节点
+				$("#MyTree").tree("collapse",node.target)
+			}else{
+				//展开树节点
+				$("#MyTree").tree("expand",node.target)
+			}*/
+			$("#MyTree").tree("toggle",node.target)
+		}
+	})
+})

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui/themes/bootstrap/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="../jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="employee.js"></script>
+</head>
+<body>
+	<table id="MyDataGrid" class="easyui-datagrid"></table>
+	
+	<div id="MyToolbar">
+		<a herf="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="add();">新增</a>
+		<a herf="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="edit();">编辑</a>
+		<a herf="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="remove();">删除</a>
+		<a herf="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" onclick="reload();">查询全部</a>
+		<input name="queryObject.keywords">
+        <a herf="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="MySearch();">高级查询</a>
+    </div>
+
+	</div>
+	
+	<div id="MyDialog">
+		<form id="MyForm" method="post">
+			<input type="hidden" name="id">
+			<table align="center" style="margin-top: 20px">
+				<tbody>
+					<tr>
+						<td>姓名：</td>
+						<td><input type="text" name="name" class="easyui-validatebox"
+							 data-options="required:true,validType:['length[2,5]']"></td>
+					</tr>
+					<!-- <tr>
+						<td>邮件：</td>
+						<td><input type="text" class="easyui-validatebox" name="email" data-options="required:true,validType:'email'"></td>
+					</tr> -->
+					<tr>
+						<td>年龄：</td>
+						<td><input type="text" name="age"></td>
+					</tr>
+					<tr>
+						<td>入职时间：</td>
+						<td><input type="text" name="inputTime" class="easyui-datebox"></td>
+					</tr>
+					<tr>
+						<td>部门：</td>
+						<td><select name="dept.id"  class="easyui-combobox" 
+							data-options="panelHeight:'auto',width:147,valueField:'id',textField:'name',url:'deptName.json'"></select></td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td><select name="status"  class="easyui-combobox" 
+							data-options="panelHeight:'auto',width:147,valueField:'value',textField:'text',
+								data:[{
+									text:'在职',value:'true'
+								},{
+									text:'离职',value:'false'
+								}]"></select></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	
+	<div id="MyButton">
+		<a herf="#" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="save();">保存</a>
+		<a herf="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="cancel();">取消</a>
+	</div>
+</body>
+</html>

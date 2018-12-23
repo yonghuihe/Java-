@@ -1,0 +1,7 @@
+{"total":28,"rows":[
+	{"id":"1","name":"lucy","age":"18","inputTime":"2017-07-01","dept":{"id":"1","name":"开发部"},"status":"true"},
+	{"id":"2","name":"will","age":"18","inputTime":"2017-07-01","dept":{"id":"2","name":"市场部"},"status":"false"},
+	{"id":"3","name":"neld","age":"18","inputTime":"2017-07-01","dept":{"id":"3","name":"销售部"},"status":"true"},
+	{"id":"4","name":"stef","age":"18","inputTime":"2017-07-01","dept":{"id":"4","name":"人事部"},"status":"true"},
+	{"id":"5","name":"bunny","age":"18","inputTime":"2017-07-01","dept":{"id":"4","name":"财务部"},"status":"false"}
+]}

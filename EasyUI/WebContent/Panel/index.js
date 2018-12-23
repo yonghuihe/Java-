@@ -1,0 +1,27 @@
+$(function(){
+	$("#MyPanel").panel({
+		width:'300',
+		height:'100',
+		title:'MyPanel',
+		collapsible:true,
+		iconCls:'icon-save',
+		//fit:'true'
+		border:true,
+		//noheader:'true'
+		//content:'My Panel',
+		minimizable:true,
+		maximizable:true,
+		closable:true,
+		collapsed:false,
+		tools:"#tt",
+		href:'content.html',
+		loadingMessage:'正在拼命加载中...',
+		onCollapse:function(){
+			console.log("面板折叠")
+		},
+		onExpand:function(){
+			console.log("面板展开");
+		}
+	});
+	$("#MyPanel").panel("setTitle","新标题")
+})

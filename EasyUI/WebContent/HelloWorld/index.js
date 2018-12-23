@@ -1,0 +1,9 @@
+$(function(){
+	//设置panel组件，对象.组件名(属性对象)
+	$("#myPanel").panel({
+		width:200,
+		height:200,
+		title:"新面板",
+		iconCls:"icon-add"
+	})
+})
