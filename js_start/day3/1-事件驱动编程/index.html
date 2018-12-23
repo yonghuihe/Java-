@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="index.js"></script>
+</head>
+<body>
+    <h3>方式1:在标签上使用onxx属性配置响应函数</h3>
+    <input type="button" value="方式1" onclick="show(this);"/>
+
+    <h3>方式2:在js代码中,使用 "元素对象.onxx=响应函数"进行事件监听</h3>
+    <input id="btn1" type="button" value="方式2"/>
+
+    <h3>方式3:在js代码中,使用给对象添加监听器的方式</h3>
+    <input id="btn2" type="button" value="方式3"/>
+    <div id="div"></div>
+</body>
+</html>

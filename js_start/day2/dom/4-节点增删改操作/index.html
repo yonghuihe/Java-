@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="index.js"></script>
+</head>
+<body>
+    <select size="6" multiple>
+        <option id="item1">item1</option>
+        <option id="item2">item2</option>
+        <option id="item4">item4</option>
+        <option id="item5">item5</option>
+    </select>
+    <hr/>
+    <input type="button" value="在item4前插入item3" onclick="insertItem3BeforeItem4();"/>
+    <input type="button" value="在item2后插入item3" onclick="insertItem3AfterItem2();"/><br/>
+    <input type="button" value="删除item1" onclick="deleteItem1();"/>
+    <input type="button" value="把item5替换成item8" onclick="changeItem5ToItem8();"/><br/>
+<!--
+   <span id="sp" style="background-color: red;">SPAN</span>
+    <div id="d1" style="background-color: gray;">DIV</div>
+    <hr/>
+    <input type="button" value="把span加入div" onclick="move2Div();"/>
+    <input type="button" value="创建span加入div" onclick="createSpan2Div();"/>-->
+</body>
+</html>
